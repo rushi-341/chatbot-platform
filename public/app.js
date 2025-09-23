@@ -1,5 +1,7 @@
+const API_BASE = (document.querySelector('meta[name="api-base"]')?.content || window.API_BASE_URL || '').replace(/\/$/, '');
 const api = async (path, opts={}) => {
-  const res = await fetch(path, opts);
+  const url = (API_BASE || '') + path;
+  const res = await fetch(url, opts);
   if (!res.ok) {
     let msg = 'Request failed';
     try { const data = await res.json(); msg = data.error || JSON.stringify(data); } catch {}
@@ -141,5 +143,14 @@ async function sendMessage(){
 // init
 document.getElementById('projectSelect').addEventListener('change', ()=>{ setSelectedProjectLabel(); loadPrompts(); });
 renderToken();
+
+// Mobile sidebar toggle
+const sidebar = document.querySelector('.sidebar');
+const backdrop = document.getElementById('backdrop');
+const openBtn = document.getElementById('openSidebar');
+function openSidebar(){ sidebar.classList.add('open'); backdrop.classList.add('show'); }
+function closeSidebar(){ sidebar.classList.remove('open'); backdrop.classList.remove('show'); }
+openBtn?.addEventListener('click', openSidebar);
+backdrop?.addEventListener('click', closeSidebar);
 
 
