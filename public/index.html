@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chatbot Platform</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <header>Chatbot Platform</header>
+
+      <div class="section">
+        <h3>Account</h3>
+        <div class="stack">
+          <div class="row">
+            <input id="regEmail" placeholder="email" style="flex:1" />
+          </div>
+          <div class="row">
+            <input id="regName" placeholder="name (optional)" style="flex:1" />
+          </div>
+          <div class="row">
+            <input id="regPassword" type="password" placeholder="password" style="flex:1" />
+          </div>
+          <div class="row">
+            <button id="btnRegister" onclick="register()" style="flex:1">Create account</button>
+          </div>
+          <div class="row">
+            <input id="email" placeholder="email" style="flex:1" />
+          </div>
+          <div class="row">
+            <input id="password" type="password" placeholder="password" style="flex:1" />
+          </div>
+          <div class="row">
+            <button id="btnLogin" onclick="login()" style="flex:1">Sign in</button>
+          </div>
+          <div class="status">Token: <span class="token pill" id="token">(not signed in)</span></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Project</h3>
+        <div class="stack">
+          <div class="row">
+            <input id="projectName" placeholder="project name" style="flex:1" />
+          </div>
+          <div class="row">
+            <select id="projectModel" style="flex:1">
+              <option value="">Default (openai/gpt-4o-mini)</option>
+              <optgroup label="OpenRouter (provider/model)">
+                <option value="openai/gpt-4o-mini">openai/gpt-4o-mini</option>
+                <option value="openai/gpt-4o">openai/gpt-4o</option>
+                <option value="anthropic/claude-3.5-sonnet">anthropic/claude-3.5-sonnet</option>
+                <option value="anthropic/claude-3.5-haiku">anthropic/claude-3.5-haiku</option>
+                <option value="meta/llama-3.1-70b-instruct">meta/llama-3.1-70b-instruct</option>
+                <option value="meta/llama-3.1-8b-instruct">meta/llama-3.1-8b-instruct</option>
+                <option value="mistralai/mixtral-8x7b-instruct">mistralai/mixtral-8x7b-instruct</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="row">
+            <button id="btnCreateProject" onclick="createProject()" style="flex:1">Create project</button>
+          </div>
+          <div class="row">
+            <select id="projectSelect" style="flex:1"></select>
+            <button class="ghost" onclick="loadProjects()">Refresh</button>
+          </div>
+          <div class="list" id="projectsList"></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Prompts</h3>
+        <div class="stack">
+          <div class="row">
+            <input id="promptTitle" placeholder="title" style="flex:1" />
+          </div>
+          <div class="row">
+            <textarea id="promptContent" placeholder="content" rows="2" style="flex:1"></textarea>
+          </div>
+          <div class="row">
+            <button id="btnAddPrompt" onclick="addPrompt()" style="flex:1">Add prompt</button>
+          </div>
+          <div class="list" id="promptsList"></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header>
+        <div class="status">Selected project: <span class="pill" id="selectedProject">(none)</span></div>
+        <div class="status">OpenAI: <span class="pill">server-side</span></div>
+      </header>
+      <div class="chat" id="log"></div>
+      <div class="composer">
+        <input id="chatInput" placeholder="Write a message..." />
+        <button id="btnSend" onclick="sendMessage()">Send</button>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" style="display:none"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
+
+
