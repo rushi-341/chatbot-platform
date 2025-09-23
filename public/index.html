@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="api-base" content="https://chatbot-platform-2.onrender.com">
   <title>Chatbot Platform</title>
   <link rel="stylesheet" href="/styles.css" />
 </head>
@@ -101,7 +102,8 @@
   </div>
 
   <div id="toast" class="toast" style="display:none"></div>
-  <script src="/app.js"></script>
+  <script>window.API_BASE_URL = 'https://chatbot-platform-2.onrender.com';</script>
+<script src="/app.js"></script>
 </body>
 </html>
 
