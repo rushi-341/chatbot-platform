@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="api-base" content="https://chatbot-platform-2.onrender.com">
+  <meta name="api-base" content="" />
   <title>Chatbot Platform</title>
   <link rel="stylesheet" href="/styles.css" />
 </head>
@@ -90,6 +90,7 @@
 
     <main class="main">
       <header>
+        <button class="menu-btn pill" id="openSidebar">☰ Menu</button>
         <div class="status">Selected project: <span class="pill" id="selectedProject">(none)</span></div>
         <div class="status">OpenAI: <span class="pill">server-side</span></div>
       </header>
@@ -102,8 +103,8 @@
   </div>
 
   <div id="toast" class="toast" style="display:none"></div>
-  <script>window.API_BASE_URL = 'https://chatbot-platform-2.onrender.com';</script>
-<script src="/app.js"></script>
+  <div id="backdrop" class="backdrop"></div>
+  <script src="/app.js"></script>
 </body>
 </html>
 
