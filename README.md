@@ -23,9 +23,7 @@ Setup
 ```bash
 npm install
 ```
-2. Create `.env`
-```bash
-```
+
 3. Run dev
 ```bash
 npm run dev
