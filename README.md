@@ -1,7 +1,7 @@
 Chatbot Platform (Node.js, Express, MongoDB)
 ===========================================
 
-Minimal multi-user chatbot platform with JWT auth, projects, prompts, and OpenAI chat.
+Minimal multi-user chatbot platform with JWT auth, projects, prompts, and OpenRouterAI chat.
 
 Features
 --------
