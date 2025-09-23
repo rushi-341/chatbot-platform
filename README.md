@@ -23,6 +23,13 @@ Setup
 ```bash
 npm install
 ```
+2. Create `.env`
+```bash
+PORT=3000
+MONGODB_URI=...
+JWT_SECRET=....
+OPENAI_API_KEY=sk-...
+```
 
 3. Run dev
 ```bash
