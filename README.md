@@ -8,8 +8,8 @@ Features
 - User registration/login (email + password, JWT)
 - Projects per user with model selection
 - Associate multiple prompts to a project
-- Chat with OpenAI; messages stored
-- Minimal HTML frontend
+- Chat with OpenRouterAI; messages stored
+- Minimal HTML,CSS AND JS frontend
 
 Requirements
 ------------
@@ -25,16 +25,11 @@ npm install
 ```
 2. Create `.env`
 ```bash
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017/chatbot_platform
-JWT_SECRET=change_me
-OPENAI_API_KEY=sk-...
 ```
 3. Run dev
 ```bash
 npm run dev
 ```
-Open `http://localhost:3000`.
 
 API
 ---
