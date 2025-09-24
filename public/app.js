@@ -3,8 +3,17 @@ const api = async (path, opts={}) => {
   const url = (API_BASE || '') + path;
   const res = await fetch(url, opts);
   if (!res.ok) {
-    let msg = 'Request failed';
-    try { const data = await res.json(); msg = data.error || JSON.stringify(data); } catch {}
+    let msg = `Request failed (${res.status})`;
+    try {
+      const ct = res.headers.get('content-type') || '';
+      if (ct.includes('application/json')) {
+        const data = await res.json();
+        msg = data.error || JSON.stringify(data);
+      } else {
+        const text = await res.text();
+        msg = text || msg;
+      }
+    } catch {}
     throw new Error(msg);
   }
   return res.json();
@@ -127,17 +136,32 @@ function appendBubble(role, text){
 async function sendMessage(){
   const projectId = document.getElementById('projectSelect').value;
   const content = document.getElementById('chatInput').value.trim();
+  const fileInput = document.getElementById('fileInput');
+  const files = Array.from(fileInput?.files || []);
   if(!projectId) return toast('Select a project', 'error');
-  if(!content) return;
+  if(!content && files.length === 0) return;
   document.getElementById('chatInput').value = '';
   const btn = document.getElementById('btnSend');
   btn.disabled = true;
-  appendBubble('user', content);
+  const userText = content || (files.length ? '(uploaded files)' : '');
+  appendBubble('user', userText);
   try {
-    const res = await api(`/api/chat/${projectId}`, { method:'POST', headers: authHeaders(), body: JSON.stringify({ message: content }) });
+    // If files, send multipart; otherwise JSON
+    let res;
+    if (files.length > 0) {
+      const form = new FormData();
+      form.append('message', content);
+      files.forEach((f, idx) => form.append('files', f, f.name));
+      res = await api(`/api/chat/${projectId}`, { method:'POST', headers: { 'Authorization': 'Bearer ' + getToken() }, body: form });
+    } else {
+      res = await api(`/api/chat/${projectId}`, { method:'POST', headers: authHeaders(), body: JSON.stringify({ message: content }) });
+    }
     appendBubble('assistant', res.reply || '(no reply)');
   } catch(e){ appendBubble('assistant', 'Error: ' + e.message); }
-  finally { btn.disabled = false; }
+  finally {
+    if (fileInput) fileInput.value = '';
+    btn.disabled = false;
+  }
 }
 
 // init
